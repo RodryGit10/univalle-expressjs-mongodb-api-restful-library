@@ -12,12 +12,18 @@ const mongoURL = "mongodb://localhost:27017/library";  // acceder a la base de d
 app.use(express.json());
 
 app.get('/authors', async(req, res) => {
-  const client = await MongoClient.connect(mongoURL, {useNewUrlparser: true, useUnifieldTopology: true});
-  const db = client.db();
+  try {
+    const client = await MongoClient.connect(mongoURL, {useNewUrlparser: true, useUnifieldTopology: true});
+    const db = client.db();
 
-  const authors = await db.collection('authors').find().toArray();
-  client.close();
-  res.json(authors);
+    const authors = await db.collection('authors').find().toArray();
+    client.close();
+    res.json(authors);
+  }catch (error){
+    console.error(error);
+    res.status(500).send("Error en el servidor");
+  }
+  
 })
 
 app.listen(port, () => {
