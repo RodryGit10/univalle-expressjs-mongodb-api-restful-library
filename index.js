@@ -13,7 +13,7 @@ app.use(express.json());
 
 app.get('/authors', async(req, res) => {
   try {
-    const client = await MongoClient.connect(mongoURL, {useNewUrlparser: true, useUnifieldTopology: true});
+    const client = await MongoClient.connect(mongoURL, {useNewUrlparser: true, useUnifiedTopology: true});
     const db = client.db();
 
     const authors = await db.collection('authors').find().toArray();
