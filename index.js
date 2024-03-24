@@ -8,12 +8,12 @@ app.get('/', (req, res) => {
   res.send('Hello World!')
 });
 
-const mongoURL = "mongodb://localhost:27017/library";  // acceder a la base de datos
+const mongoURL = "mongodb+srv://rodrygo:AwL8A4RFjAED30Nj@clusterunivalle.uzpjpsm.mongodb.net/?retryWrites=true&w=majority&appName=ClusterUnivalle";  // acceder a la base de datos
 app.use(express.json());
 
 app.get('/authors', async(req, res) => {
   try {
-    const client = await MongoClient.connect(mongoURL, {useNewUrlparser: true, useUnifiedTopology: true});
+    const client = await MongoClient.connect(mongoURL);
     const db = client.db();
 
     const authors = await db.collection('authors').find().toArray();
