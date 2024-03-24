@@ -8,7 +8,7 @@ app.get('/', (req, res) => {
   res.send('Hello World!')
 });
 
-const mongoURL = "mongodb+srv://rodrygo:AwL8A4RFjAED30Nj@clusterunivalle.uzpjpsm.mongodb.net/?retryWrites=true&w=majority&appName=ClusterUnivalle";  // acceder a la base de datos
+const mongoURL = "mongodb+srv://rodrygo:AwL8A4RFjAED30Nj@clusterunivalle.uzpjpsm.mongodb.net/library?retryWrites=true&w=majority&appName=ClusterUnivalle";  // acceder a la base de datos
 app.use(express.json());
 
 app.get('/authors', async(req, res) => {
