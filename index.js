@@ -26,6 +26,22 @@ app.get('/authors', async(req, res) => {
   
 })
 
+app.get('/authors/:id', async (req, res) => {
+  try {
+      const client = await MongoClient.connect(mongoURL);
+      const db = client.db();
+  
+      const author = await db.collection('authors').findOne({ _id: new ObjectId(req.params.id)});
+      client.close();
+      res.json(author);
+  } catch (error) {
+      console.error(error);
+      res.status(500).send("Error en el Servidor");
+  }
+});
+
+
+
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
