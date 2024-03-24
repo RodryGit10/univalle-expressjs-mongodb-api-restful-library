@@ -40,7 +40,28 @@ app.get('/authors/:id', async (req, res) => {
   }
 });
 
+app.post('/authors', async (req, res) => {
+  try {
+      const client = await MongoClient.connect(mongoURL);
+      const db = client.db();
+  
+      // obtener datos
+      const {name, nationality} = req.body;
+      if (!name) {
+        res.status(400).send('Se require el campo name');
+        return;
+      }
 
+      const newAuthor = { name, nationality };
+      await db.collection('authors').insertOne(newAuthor);
+
+      client.close();
+      res.json(newAuthor);
+  } catch (error) {
+      console.error(error);
+      res.status(500).send("Error en el Servidor");
+  }
+});
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
